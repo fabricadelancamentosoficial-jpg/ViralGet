@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Missão ViralGET — Get Church Floripa</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0D0D0D; min-height: 100vh; padding: 24px 16px; color: #fff; }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  :root {
+    --g: #5d6532;
+    --g2: #4a5128;
+    --g3: #3a4020;
+    --gl: rgba(93,101,50,0.18);
+    --gb: rgba(93,101,50,0.35);
+    --text: rgba(255,255,255,0.75);
+    --muted: rgba(255,255,255,0.4);
+    --muted2: rgba(255,255,255,0.2);
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.04);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1a1c0d 0%, #2a2e12 50%, #3a4018 100%);
+    border-radius: 16px; padding: 44px 36px; text-align: center;
+    margin-bottom: 28px; border: 1px solid rgba(93,101,50,0.35);
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: 'GET'; position: absolute; font-size: 200px; font-weight: 900;
+    color: rgba(93,101,50,0.07); bottom: -40px; right: -10px;
+    letter-spacing: 0.05em; line-height: 1; pointer-events: none;
+  }
+  .header-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(93,101,50,0.9); margin-bottom: 12px; }
+  .header h1 { font-size: 34px; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.5px; line-height: 1.1; }
+  .header h1 span { color: #8a9642; }
+  .header .slogan { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 8px; font-style: italic; }
+  .header .slogan strong { color: rgba(255,255,255,0.75); font-style: normal; }
+  .header .recrutamento { font-size: 12px; color: rgba(93,101,50,0.85); line-height: 1.6; margin-bottom: 22px; font-style: italic; }
+  .tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .tag { font-size: 11px; padding: 4px 12px; border-radius: 20px; background: rgba(93,101,50,0.15); color: rgba(255,255,255,0.55); border: 1px solid rgba(93,101,50,0.3); }
+
+  /* ── ÍNDICE ── */
+  .indice { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin-bottom: 32px; }
+  .indice h3 { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; color: var(--g); text-transform: uppercase; margin-bottom: 12px; opacity: 0.8; }
+  .indice a { display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); text-decoration: none; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.04); transition: color .2s; }
+  .indice a:last-child { border-bottom: none; }
+  .indice a:hover { color: #fff; }
+  .idx-num { font-size: 10px; color: rgba(93,101,50,0.7); font-weight: 700; margin-right: 10px; }
+
+  /* ── SEÇÃO ── */
+  .section { margin-bottom: 44px; }
+  .anchor { display: block; position: relative; top: -20px; visibility: hidden; }
+  .section-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid rgba(93,101,50,0.3); }
+  .section-num { font-size: 11px; font-weight: 700; color: rgba(93,101,50,0.8); letter-spacing: 0.1em; min-width: 28px; padding-top: 3px; }
+  .section-title { font-size: 20px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .section-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+  /* ── CARDS ── */
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 12px; }
+  .card-g { background: var(--gl); border: 1px solid rgba(93,101,50,0.3); border-radius: 12px; padding: 20px 22px; margin-bottom: 12px; }
+  .clabel { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(93,101,50,0.9); margin-bottom: 8px; }
+  .clabel.muted { color: var(--muted2); }
+  .ctitle { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .csub { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+  /* ── ALERT ── */
+  .alert { border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; }
+  .alert-g { background: var(--gl); border: 1px solid rgba(93,101,50,0.3); border-left: 3px solid var(--g); }
+  .alert-dim { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-left: 3px solid rgba(255,255,255,0.12); }
+  .alert p { font-size: 13px; color: var(--text); line-height: 1.7; }
+  .alert p strong { color: #fff; }
+  .alert-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(93,101,50,0.85); margin-bottom: 6px; }
+  .alert-label.muted { color: var(--muted2); }
+
+  /* ── LISTA ── */
+  .lista { list-style: none; }
+  .lista li { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text); line-height: 1.65; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .lista li:last-child { border-bottom: none; }
+  .lista li::before { content: '—'; color: var(--g); font-weight: 700; flex-shrink: 0; font-size: 12px; margin-top: 1px; }
+
+  /* ── STATS ── */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 16px; text-align: center; }
+  .stat-val { font-size: 32px; font-weight: 800; color: #8a9642; line-height: 1; margin-bottom: 5px; }
+  .stat-val.w { color: rgba(255,255,255,0.6); }
+  .stat-lbl { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+  /* ── FRENTES ── */
+  .frente { border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+  .frente-h { padding: 16px 20px; }
+  .fh-g { background: linear-gradient(135deg, #1a1c0d 0%, #2e3215 100%); border: 1px solid rgba(93,101,50,0.4); border-bottom: none; border-radius: 12px 12px 0 0; }
+  .fh-g { background: linear-gradient(135deg, #141414 0%, #1c1c1c 100%); border: 1px solid var(--border); border-bottom: none; border-radius: 12px 12px 0 0; }
+  .frente-num { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); margin-bottom: 4px; }
+  .frente-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .frente-sub { font-size: 11px; color: var(--muted); }
+  .frente-body { padding: 16px 20px; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-top: none; border-radius: 0 0 12px 12px; }
+  .frente-pub { font-size: 11px; font-weight: 600; color: rgba(93,101,50,0.8); margin-top: 10px; letter-spacing: 0.04em; }
+
+  /* ── PASSOS ── */
+  .passo { display: flex; gap: 14px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .passo:last-child { border-bottom: none; }
+  .passo-num { font-size: 13px; font-weight: 800; color: var(--g); min-width: 28px; line-height: 1.4; }
+  .passo-titulo { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .passo-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .pbadge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; margin-top: 5px; letter-spacing: 0.06em; text-transform: uppercase; background: var(--gl); color: rgba(93,101,50,0.9); border: 1px solid rgba(93,101,50,0.3); }
+  .pbadge.dim { background: rgba(255,255,255,0.05); color: var(--muted); border-color: var(--border); }
+  .pbadge.warn { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.12); }
+
+  /* ── TEAM ── */
+  .team-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin-bottom: 10px; border-top: 2px solid rgba(93,101,50,0.6); }
+  .team-name { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+  .team-role { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(93,101,50,0.85); margin-bottom: 10px; }
+
+  /* ── PATENTES ── */
+  .patente { display: flex; align-items: center; gap: 14px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .patente:last-child { border-bottom: none; }
+  .pat-icon { width: 34px; height: 34px; border-radius: 8px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .pat-icon.g { background: var(--gl); border-color: rgba(93,101,50,0.3); }
+  .pat-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .pat-name.elite { color: #8a9642; }
+  .pat-desc { font-size: 12px; color: var(--muted); }
+  .pat-badge { margin-left: auto; font-size: 10px; font-weight: 700; padding: 2px 10px; border-radius: 6px; white-space: nowrap; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+  .pat-badge.g { background: var(--gl); color: rgba(93,101,50,0.9); border-color: rgba(93,101,50,0.3); }
+
+  /* ── GAMIFICAÇÃO CHART ── */
+  .game-section { background: linear-gradient(160deg, #151810 0%, #1c2010 100%); border: 1px solid rgba(93,101,50,0.3); border-radius: 14px; padding: 24px 22px; margin-bottom: 14px; }
+  .game-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .game-sub { font-size: 12px; color: var(--muted); margin-bottom: 20px; }
+  .tier-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .tier-row:last-child { margin-bottom: 0; }
+  .tier-icon { font-size: 18px; width: 32px; text-align: center; flex-shrink: 0; }
+  .tier-info { flex: 1; }
+  .tier-name { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .tier-bar-wrap { height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; margin-bottom: 3px; }
+  .tier-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--g3), var(--g)); }
+  .tier-crit { font-size: 11px; color: var(--muted); }
+  .tier-prize { font-size: 12px; font-weight: 600; color: rgba(138,150,66,0.9); white-space: nowrap; text-align: right; min-width: 110px; }
+
+  .views-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 16px; }
+  .view-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px; padding: 12px 10px; text-align: center; }
+  .view-val { font-size: 18px; font-weight: 800; color: #8a9642; line-height: 1; margin-bottom: 4px; }
+  .view-lbl { font-size: 10px; color: var(--muted); line-height: 1.4; }
+
+  /* ── FUNIL ── */
+  .funil-item { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 8px; margin-bottom: 2px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+  .funil-item.hl { background: var(--gl); border-color: rgba(93,101,50,0.3); }
+  .funil-n { font-size: 18px; font-weight: 800; color: rgba(255,255,255,0.1); min-width: 24px; line-height: 1; }
+  .funil-item.hl .funil-n { color: rgba(93,101,50,0.4); }
+  .funil-t { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 2px; }
+  .funil-s { font-size: 12px; color: var(--muted); }
+  .funil-tag { margin-left: auto; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); flex-shrink: 0; letter-spacing: 0.06em; text-transform: uppercase; }
+  .funil-item.hl .funil-tag { background: rgba(93,101,50,0.2); color: rgba(138,150,66,0.9); border-color: rgba(93,101,50,0.35); }
+
+  /* ── ROADMAP ── */
+  .rm { width: 100%; border-collapse: separate; border-spacing: 2px; }
+  .rm th { padding: 10px 14px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-align: left; background: rgba(255,255,255,0.04); color: var(--muted); border-radius: 6px; }
+  .rm th.ph1 { background: var(--gl); color: rgba(138,150,66,0.9); }
+  .rm th.ph2 { background: rgba(93,101,50,0.35); color: #fff; }
+  .rm th.ph3 { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55); }
+  .rm td { padding: 10px 14px; font-size: 12px; color: var(--text); background: rgba(255,255,255,0.025); border-radius: 4px; vertical-align: top; line-height: 1.55; }
+  .rm td.rl { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); background: rgba(255,255,255,0.02); white-space: nowrap; }
+  .rm td.c1 { border-left: 2px solid rgba(93,101,50,0.5); }
+  .rm td.c2 { border-left: 2px solid rgba(93,101,50,0.8); }
+  .rm td.c3 { border-left: 2px solid rgba(255,255,255,0.1); }
+
+  /* ── METAS ── */
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .meta-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .meta-box.g { background: var(--gl); border-color: rgba(93,101,50,0.3); }
+  .meta-val { font-size: 36px; font-weight: 800; color: #8a9642; line-height: 1; margin-bottom: 6px; }
+  .meta-box.g .meta-val { color: #fff; }
+  .meta-lbl { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SÉRIE ── */
+  .serie { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: flex-start; }
+  .serie:last-child { border-bottom: none; }
+  .serie-n { font-size: 20px; font-weight: 800; color: rgba(93,101,50,0.3); min-width: 32px; line-height: 1; }
+  .serie-title { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .serie-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── CLOSING ── */
+  .closing { background: linear-gradient(135deg, #151810 0%, #1c2010 50%, #232614 100%); border: 1px solid rgba(93,101,50,0.3); border-radius: 16px; padding: 40px 32px; text-align: center; margin-top: 48px; }
+  .closing-manifesto { font-size: 22px; font-weight: 800; color: #fff; line-height: 1.35; margin-bottom: 10px; letter-spacing: -0.3px; }
+  .closing-manifesto em { color: #8a9642; font-style: normal; }
+  .closing-slogan { font-size: 12px; color: var(--muted); font-style: italic; margin-bottom: 28px; letter-spacing: 0.04em; }
+  .presenter-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .presenter { background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; min-width: 160px; }
+  .presenter-name { font-size: 15px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+  .presenter-role { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(93,101,50,0.8); }
+  .closing-footer { font-size: 11px; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── DIVIDER ── */
+  .sdiv { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 36px 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-eyebrow">Get Church Floripa — Proposta Estratégica 2025</div>
+    <h1>Missão <span>Viral</span>GET</h1>
+    <div class="slogan"><strong>O campo é digital. A missão é eterna.</strong></div>
+    <div class="recrutamento">"O front digital precisa de você. Aliste-se à Missão ViralGET e transforme cada clip em uma alma alcançada."</div>
+    <div class="tags">
+      <span class="tag">Missionários Digitais</span>
+      <span class="tag">2 Frentes de Conteúdo</span>
+      <span class="tag">90 dias para escala</span>
+      <span class="tag">500+ jovens</span>
+    </div>
+  </div>
+
+  <!-- ÍNDICE -->
+  <div class="indice">
+    <h3>Índice</h3>
+    <a href="#contexto"><span><span class="idx-num">01</span> Contexto e Golden Circle</span></a>
+    <a href="#frentes"><span><span class="idx-num">02</span> As Duas Frentes</span></a>
+    <a href="#bastidores"><span><span class="idx-num">03</span> Séries de Bastidores</span></a>
+    <a href="#operacao"><span><span class="idx-num">04</span> Operação — Passo a Passo</span></a>
+    <a href="#time"><span><span class="idx-num">05</span> Time e Treinamento</span></a>
+    <a href="#patentes"><span><span class="idx-num">06</span> Patentes Militares e Gamificação</span></a>
+    <a href="#funil"><span><span class="idx-num">07</span> Funil de Conversão</span></a>
+    <a href="#roadmap"><span><span class="idx-num">08</span> Roadmap — 90 dias</span></a>
+    <a href="#metas"><span><span class="idx-num">09</span> Metas e Métricas</span></a>
+  </div>
+
+
+  <!-- 01 CONTEXTO -->
+  <div class="section">
+    <a class="anchor" id="contexto"></a>
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div>
+        <div class="section-title">Contexto e Golden Circle</div>
+        <div class="section-sub">Por que a Missão ViralGET existe</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-val">500+</div><div class="stat-lbl">jovens prontos para servir</div></div>
+      <div class="stat-box"><div class="stat-val">2</div><div class="stat-lbl">frentes de conteúdo</div></div>
+      <div class="stat-box"><div class="stat-val w">90</div><div class="stat-lbl">dias para escala real</div></div>
+    </div>
+
+    <div class="alert alert-g" style="margin-bottom:10px;">
+      <div class="alert-label">WHY — Por que existimos</div>
+      <p>Porque há milhões de pessoas a um clip de distância de encontrar Jesus — e elas nunca vão buscar. <strong>Alguém precisa ir até o feed delas.</strong></p>
+    </div>
+    <div class="alert alert-g" style="margin-bottom:10px;">
+      <div class="alert-label">HOW — Como fazemos</div>
+      <p>Treinamos jovens convocados para transformar a Palavra em conteúdo que fura bolhas, invade feeds e alcança quem nenhuma church page alcançaria.</p>
+    </div>
+    <div class="alert alert-g" style="margin-bottom:20px;">
+      <div class="alert-label">WHAT — O que somos</div>
+      <p>Missão ViralGET — um movimento de <strong>Missionários Digitais</strong> enviados para o campo mais vasto do século 21: a internet.</p>
+    </div>
+
+    <div class="card">
+      <div class="clabel">A missão apostólica da Get em formato digital</div>
+      <div class="csub" style="margin-bottom:12px;">Servir → Ganhar → Consolidar → Multiplicar. A Missão ViralGET é a expressão digital dessa visão.</div>
+      <ul class="lista">
+        <li>Conteúdo de alta qualidade produzido toda semana — subaproveitado</li>
+        <li>500+ jovens com vontade de servir sem área de atuação definida</li>
+        <li>Pessoas que nunca seguiriam uma church page — inalcançadas pelos canais oficiais</li>
+        <li>Acervo de pregações e louvores ficando em arquivos sem uso</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 02 FRENTES -->
+  <div class="section">
+    <a class="anchor" id="frentes"></a>
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div>
+        <div class="section-title">As Duas Frentes</div>
+        <div class="section-sub">Um projeto. Dois movimentos. Públicos distintos.</div>
+      </div>
+    </div>
+
+    <div class="frente">
+      <div class="frente-h fh-g">
+        <div class="frente-num">Frente 01</div>
+        <div class="frente-title">Clipagem de Pregações</div>
+        <div class="frente-sub">O coração da missão</div>
+      </div>
+      <div class="frente-body">
+        <ul class="lista">
+          <li>Cortes de 30s a 3min dos momentos mais impactantes das pregações</li>
+          <li>Foco em viradas, revelações e frases de impacto espiritual</li>
+          <li>Publicado em páginas temáticas independentes — "Jesus Falou", "Jesus Citou"</li>
+          <li>Sem identidade direta da Get — o clip faz o trabalho de alcançar por meio da experiência do usuário</li>
+        </ul>
+        <div class="frente-pub">Reels · Shorts · TikTok — publicação diária — Alcança: quem nunca buscou conteúdo cristão</div>
+      </div>
+    </div>
+
+    <div class="frente">
+      <div class="frente-h fh-g">
+        <div class="frente-num">Frente 02</div>
+        <div class="frente-title">Bastidores Get Worship</div>
+        <div class="frente-sub">O movimento por trás da música</div>
+      </div>
+      <div class="frente-body">
+        <ul class="lista">
+          <li>Dia a dia dos músicos e cantores — preparação, ensaios, momentos reais</li>
+          <li>Posiciona os artistas como figuras públicas de referência cristã</li>
+          <li>Get Worship já está viralizado — esta frente sustenta e amplifica o fenômeno</li>
+          <li>Alimenta a curiosidade de quem ouviu a música mas não conhece a igreja</li>
+        </ul>
+        <div class="frente-pub">Reels · Shorts · TikTok — Alcança: fãs da música + potenciais novos membros</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 03 SÉRIES -->
+  <div class="section">
+    <a class="anchor" id="bastidores"></a>
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div>
+        <div class="section-title">Séries de Bastidores</div>
+        <div class="section-sub">Frente 02 — seis formatos, cada um com propósito</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="serie"><div class="serie-n">01</div><div><div class="serie-title">Antes do Palco</div><div class="serie-desc">Os 60 minutos antes do culto. Ensaio, oração, preparação. Humaniza os músicos antes do momento sobrenatural.</div></div></div>
+      <div class="serie"><div class="serie-n">02</div><div><div class="serie-title">De Onde Veio Essa Música</div><div class="serie-desc">O processo de criação de uma música do Get Worship — da ideia ao culto. Um cantor diferente por episódio.</div></div></div>
+      <div class="serie"><div class="serie-n">03</div><div><div class="serie-title">24h com [nome do cantor]</div><div class="serie-desc">Um dia inteiro na vida de um missionário que também é músico. Fé e vida real coexistindo de forma natural.</div></div></div>
+      <div class="serie"><div class="serie-n">04</div><div><div class="serie-title">Primeira Vez</div><div class="serie-desc">Histórias de membros contando a primeira vez no culto. Formato de depoimento curto — altamente compartilhável.</div></div></div>
+      <div class="serie"><div class="serie-n">05</div><div><div class="serie-title">Get Unplugged</div><div class="serie-desc">Músicos em versões acústicas e íntimas fora do palco — na rua, em casa, num café. Alcança quem nem é cristão.</div></div></div>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 04 OPERAÇÃO -->
+  <div class="section">
+    <a class="anchor" id="operacao"></a>
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div>
+        <div class="section-title">Operação — Passo a Passo</div>
+        <div class="section-sub">Do culto ao feed. Controle em cada etapa.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:12px;">
+      <div class="passo"><div class="passo-num">01</div><div><div class="passo-titulo">Captura</div><div class="passo-desc">Missionário capta os vídeos dos cultos diretamente pelo YouTube da Get.</div><span class="pbadge dim">Fonte: YouTube</span></div></div>
+      <div class="passo"><div class="passo-num">02</div><div><div class="passo-titulo">Edição</div><div class="passo-desc">Faz os cortes via CapCut seguindo o checklist pré-upload do projeto.</div><span class="pbadge dim">CapCut + Checklist</span></div></div>
+      <div class="passo"><div class="passo-num">03</div><div><div class="passo-titulo">Upload no Drive</div><div class="passo-desc">Adiciona o vídeo editado na sua pasta individual no Google Drive central.</div><span class="pbadge dim">Google Drive 30TB</span></div></div>
+      <div class="passo"><div class="passo-num">04</div><div><div class="passo-titulo">Revisão e Aprovação</div><div class="passo-desc">Revisor analisa com checklist e libera ou devolve com feedback pelo Discord.</div><span class="pbadge warn">Aprovação obrigatória</span></div></div>
+      <div class="passo"><div class="passo-num">05</div><div><div class="passo-titulo">Publicação</div><div class="passo-desc">Missionário posta apenas vídeos aprovados nas páginas temáticas no horário certo.</div><span class="pbadge">Reels · Shorts · TikTok</span></div></div>
+    </div>
+
+    <div class="alert alert-g">
+      <div class="alert-label">Aprovação em camadas — velocidade com controle</div>
+      <p>Missionários treinados com checklist objetivo filtram antes de enviar. Revisores aprovam apenas o que passou. Clipadores consistentes ganham autonomia progressiva. Resultado: ritmo alto sem abrir mão da governança.</p>
+    </div>
+
+    <div class="card">
+      <div class="clabel">Infraestrutura e Calendário</div>
+      <ul class="lista">
+        <li>Google One Ultra 30TB — U$149/mês · 1 ADM, 1 Get</li>
+        <li>Comunidade interna — comunicação, aprovações e gamificação do time</li>
+        <li>Calendário editorial orientado por contexto: lançamento de música, pregador convidado, eventos</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 05 TIME -->
+  <div class="section">
+    <a class="anchor" id="time"></a>
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div>
+        <div class="section-title">Time e Treinamento</div>
+        <div class="section-sub">Três pilares de capacitação. Duas lideranças complementares.</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-role">Co-liderança — Estratégia & Viralização</div>
+      <div class="team-name">Arthur</div>
+      <ul class="lista">
+        <li>Estratégia de distribuição, viralização e gestão das páginas temáticas</li>
+        <li>Treinamento de estratégia de conteúdo com os Missionários</li>
+        <li>Análise de KPIs e relatórios quinzenais à liderança</li>
+      </ul>
+    </div>
+    <div class="team-card">
+      <div class="team-role">Co-liderança — Treinamento & Operações</div>
+      <div class="team-name">Lorenzo</div>
+      <ul class="lista">
+        <li>Treinamento, capacitação e onboarding dos Missionários Digitais</li>
+        <li>Gestão operacional do time, cultura do projeto e gamificação</li>
+        <li>Sistema de patentes militares e engajamento do movimento</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="clabel">Três Pilares de Treinamento</div>
+      <ul class="lista">
+        <li><strong style="color:#fff;">Editores da Get</strong> — capacitação em CapCut e edição de vídeo</li>
+        <li><strong style="color:#fff;">Arthur</strong> — estratégia de viralização e distribuição orgânica</li>
+        <li><strong style="color:#fff;">Lorenzo</strong> — cultura do projeto, processos e mentalidade missionária</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 06 PATENTES + GAMIFICAÇÃO -->
+  <div class="section">
+    <a class="anchor" id="patentes"></a>
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div>
+        <div class="section-title">Patentes Militares e Gamificação</div>
+        <div class="section-sub">O Missionário não ganha um prêmio — ele é promovido.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-dim" style="margin-bottom:16px;">
+      <p>Promoção é identidade. Identidade cola para sempre. <strong>"Fui promovido a Capitão esse mês"</strong> — isso transforma o serviço em vocação.</p>
+    </div>
+
+    <div class="card" style="margin-bottom:14px;">
+      <div class="clabel" style="margin-bottom:14px;">Hierarquia de patentes</div>
+      <div class="patente"><div class="pat-icon">🎖️</div><div><div class="pat-name">Recruta</div><div class="pat-desc">Alistado, em treinamento — primeiros 30 dias</div></div><div class="pat-badge">Nível 1</div></div>
+      <div class="patente"><div class="pat-icon">⚔️</div><div><div class="pat-name">Soldado</div><div class="pat-desc">Primeiro mês completo, clips aprovados e publicados</div></div><div class="pat-badge">Nível 2</div></div>
+      <div class="patente"><div class="pat-icon">🪖</div><div><div class="pat-name">Cabo</div><div class="pat-desc">Consistência comprovada, autonomia progressiva</div></div><div class="pat-badge">Nível 3</div></div>
+      <div class="patente"><div class="pat-icon">🛡️</div><div><div class="pat-name">Sargento</div><div class="pat-desc">Referência no time, orienta outros Missionários</div></div><div class="pat-badge">Nível 4</div></div>
+      <div class="patente"><div class="pat-icon">⭐</div><div><div class="pat-name">Tenente</div><div class="pat-desc">Revisor interno — bonificações, liderança de pelotão e aprovação de conteúdo do seu pelotão</div></div><div class="pat-badge g">Revisor</div></div>
+      <div class="patente"><div class="pat-icon">🔱</div><div><div class="pat-name">Capitão</div><div class="pat-desc">Líder de célula — bonificações, liderança de pelotão e aprovação de conteúdo do seu pelotão</div></div><div class="pat-badge g">Liderança</div></div>
+      <div class="patente" style="border-bottom:none;"><div class="pat-icon g">🏆</div><div><div class="pat-name elite">General</div><div class="pat-desc">Topo do ranking — maior alcance, máximo reconhecimento</div></div><div class="pat-badge g">Elite</div></div>
+    </div>
+
+    <!-- GAMIFICAÇÃO POR VISUALIZAÇÕES -->
+    <div class="game-section">
+      <div class="game-title">Sistema de Recompensas por Visualizações</div>
+      <div class="game-sub">Cada marco de visualizações desbloqueia um benefício real. Quanto mais o Missionário alcança, mais ele recebe.</div>
+
+      <div class="tier-row">
+        <div class="tier-icon">🎗️</div>
+        <div class="tier-info">
+          <div class="tier-name">Medalha de Bravura — 500k a 1M views/mês</div>
+          <div class="tier-bar-wrap"><div class="tier-bar" style="width:45%"></div></div>
+          <div class="tier-crit">Alto alcance e consistência no campo digital</div>
+        </div>
+        <div class="tier-prize">Prêmio + destaque no time</div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-icon">🏅</div>
+        <div class="tier-info">
+          <div class="tier-name">Medalha de Serviço — 1M a 2M views/mês</div>
+          <div class="tier-bar-wrap"><div class="tier-bar" style="width:70%"></div></div>
+          <div class="tier-crit">Viralização expressiva — impacto comprovado</div>
+        </div>
+        <div class="tier-prize">Prêmio em espécie + promoção</div>
+      </div>
+      <div class="tier-row" style="margin-bottom:0;">
+        <div class="tier-icon">🎖️</div>
+        <div class="tier-info">
+          <div class="tier-name">Medalha de Honra — acima de 2M views/mês</div>
+          <div class="tier-bar-wrap"><div class="tier-bar" style="width:100%; background: linear-gradient(90deg, var(--g3), #8a9642);"></div></div>
+          <div class="tier-crit">Viralização massiva — condecoração máxima</div>
+        </div>
+        <div class="tier-prize">Prêmio especial + equipe profissional</div>
+      </div>
+
+      <div style="border-top:1px solid rgba(255,255,255,0.07); margin-top:20px; padding-top:16px;">
+        <div class="clabel" style="margin-bottom:12px;">Benefícios por marco desbloqueado</div>
+        <div class="views-grid">
+          <div class="view-box"><div class="view-val">10k</div><div class="view-lbl">Clip viral — bônus individual</div></div>
+          <div class="view-box"><div class="view-val">50k</div><div class="view-lbl">Certificado + avanço de patente</div></div>
+          <div class="view-box"><div class="view-val">500k</div><div class="view-lbl">Prêmio em espécie + destaque</div></div>
+          <div class="view-box"><div class="view-val">1M</div><div class="view-lbl">Entrada na equipe profissional</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-g">
+      <div class="clabel">Caminho de ascensão</div>
+      <ul class="lista">
+        <li>Recruta → Soldado → Cabo → Sargento → Tenente → Capitão → General</li>
+        <li>Missionários consistentes ganham autonomia progressiva de publicação</li>
+        <li>Os melhores têm caminho claro para a equipe profissional da Get</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 07 FUNIL -->
+  <div class="section">
+    <a class="anchor" id="funil"></a>
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div>
+        <div class="section-title">Funil de Conversão</div>
+        <div class="section-sub">Do feed ao clã. Cada página tem sua própria jornada.</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px;">
+      <div class="funil-item hl"><div class="funil-n">01</div><div><div class="funil-t">Clip no feed</div><div class="funil-s">Pessoa alcançada organicamente pela página temática</div></div><div class="funil-tag">Topo</div></div>
+      <div class="funil-item"><div class="funil-n">02</div><div><div class="funil-t">Segue a página</div><div class="funil-s">Interesse gerado — começa a consumir mais conteúdo</div></div><div class="funil-tag">Meio</div></div>
+      <div class="funil-item"><div class="funil-n">03</div><div><div class="funil-t">Link na bio → produto ou culto</div><div class="funil-s">Conversão em produto digital ou visita presencial à Get</div></div><div class="funil-tag">Conversão</div></div>
+      <div class="funil-item"><div class="funil-n">04</div><div><div class="funil-t">Connect</div><div class="funil-s">Formulário para visitantes de primeira vez — igreja cuida e acolhe</div></div><div class="funil-tag">Consolidação</div></div>
+      <div class="funil-item hl"><div class="funil-n">05</div><div><div class="funil-t">Clã digital</div><div class="funil-s">Discipulado online — missão apostólica completa o ciclo</div></div><div class="funil-tag">Multiplicação</div></div>
+    </div>
+
+    <div class="card-g">
+      <div class="clabel">Monetização por nicho — sutil e estratégica</div>
+      <ul class="lista">
+        <li>Devocional <em style="font-style:normal;color:rgba(255,255,255,0.8);">Conquiste Todo Dia</em> — link na bio com landing page própria</li>
+        <li>Cursos por público — ex: homens → Adulão do Coração</li>
+        <li>Get Kids — produtos e conteúdo para famílias</li>
+        <li>Cada página temática com produto alinhado ao seu nicho</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 08 ROADMAP -->
+  <div class="section">
+    <a class="anchor" id="roadmap"></a>
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div>
+        <div class="section-title">Roadmap — 90 dias</div>
+        <div class="section-sub">Três blocos de 30 dias. Entregáveis claros. Relatório quinzenal à liderança.</div>
+      </div>
+    </div>
+    <table class="rm">
+      <thead>
+        <tr>
+          <th style="width:90px;">Área</th>
+          <th class="ph1">Dias 1–30 — Fundação</th>
+          <th class="ph2">Dias 31–60 — Aceleração</th>
+          <th class="ph3">Dias 61–90 — Escala</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="rl">Time</td><td class="c1">Seleção e treinamento de 15–20 Recrutas</td><td class="c2">Expansão para 30–50 Missionários ativos</td><td class="c3">Até 100 Missionários · Trilha de capacitação formal</td></tr>
+        <tr><td class="rl">Conteúdo</td><td class="c1">Manual de clipagem criado · Primeiros 50 clips ao ar</td><td class="c2">Análise dos formatos virais · Replicação das fórmulas vencedoras</td><td class="c3">1.000+ clips · Biblioteca de formatos validados</td></tr>
+        <tr><td class="rl">Páginas</td><td class="c1">10 páginas temáticas criadas e ativas</td><td class="c2">20–30 páginas publicando diariamente</td><td class="c3">50+ páginas · Bastidores Get Worship consolidados</td></tr>
+        <tr><td class="rl">Operação</td><td class="c1">Drive · Discord · Checklist · Aprovação rodando</td><td class="c2">Gamificação ativa · Patentes e ranking mensal</td><td class="c3">Autonomia progressiva · Sistema escalável</td></tr>
+        <tr><td class="rl">Resultado</td><td class="c1">Primeiros clips ao ar · Relatório inicial</td><td class="c2">Relatório quinzenal de alcance e crescimento</td><td class="c3">Relatório de impacto: almas, alcance, conversões · Ministério oficializado</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sdiv">
+
+  <!-- 09 METAS -->
+  <div class="section">
+    <a class="anchor" id="metas"></a>
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <div>
+        <div class="section-title">Metas e Métricas</div>
+        <div class="section-sub">O que medimos. O que importa.</div>
+      </div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-box g"><div class="meta-val">100</div><div class="meta-lbl">Missionários Digitais treinados em 90 dias</div></div>
+      <div class="meta-box"><div class="meta-val">50+</div><div class="meta-lbl">páginas temáticas ativas publicando diariamente</div></div>
+      <div class="meta-box"><div class="meta-val">1k+</div><div class="meta-lbl">clips publicados e distribuídos no trimestre</div></div>
+      <div class="meta-box"><div class="meta-val" style="color:rgba(255,255,255,0.25);">∞</div><div class="meta-lbl">vidas alcançadas além das bolhas</div></div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div class="card">
+        <div class="clabel">Métricas de alcance</div>
+        <ul class="lista">
+          <li>Visualizações totais por semana por frente</li>
+          <li>Novos seguidores nas páginas temáticas</li>
+          <li>Clips com mais de 10k visualizações</li>
+          <li>Compartilhamentos orgânicos</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="clabel">Métricas de missão</div>
+        <ul class="lista">
+          <li>Visitantes novos no culto via redes</li>
+          <li>Connects de primeira vez preenchidos</li>
+          <li>Membros integrados aos clãs digitais</li>
+          <li>Missionários promovidos de patente</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <div class="closing-manifesto">
+      Cada Missionário é um braço.<br>
+      Cada clip é uma <em>vida.</em><br>
+      Cada visualização é uma semente.
+    </div>
+    <div class="closing-slogan">O campo é digital. A missão é eterna.</div>
+    <div class="presenter-row">
+      <div class="presenter"><div class="presenter-name">Arthur</div><div class="presenter-role">Estratégia & Viralização</div></div>
+      <div class="presenter"><div class="presenter-name">Lorenzo</div><div class="presenter-role">Treinamento & Operações</div></div>
+    </div>
+    <div class="closing-footer">Get Church Floripa — Missão ViralGET — 2025</div>
+  </div>
+
+</div>
+</body>
+</html>
